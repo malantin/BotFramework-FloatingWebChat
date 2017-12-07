@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://cdn.botframework.com/botframework-webchat/latest/botchat.css" rel="stylesheet" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <div style="text-align: center;">
+    <h1 style="color: #0078d7">
+        Display and hide the Bot Framework Web Chat <br />
+        using Materialize
+    </h1>
+    <p>
+        This sample shows how to display and hide a floating chat windows using <a href="materializecss.com">Materialize</a>.
+        To make the chat work you need to enable Directline in the Bot Framework developer portal and generate a directline secret. This secret needs to entered in the bot configuration in the source for this page.
+    </p>
+    <p>
+        Just click the button in the bottom right corner to display the chat. Click the button again to hide the chat windows again.
+    </p>
+</div>
+    <a id="chatButton" class="btn-floating btn-large waves-effect waves-light" style="position: fixed;z-index: 10000;bottom: 1em;right: 1em;background:#0078d7">
+        <i class="material-icons">chat</i>
+    </a>
+    <div id="webchat" class="z-depth-1 scale-transition scale-out" style="background:white; border: 1px solid #0078d7;position: fixed;z-index: 10000;bottom: 6em;right: 1em;width: 400px;height:600px;"></div>
+    <script src="https://cdn.botframework.com/botframework-webchat/latest/botchat.js"></script>
+    <script>
+
+        BotChat.App({
+            directLine: { secret: 'directlinesecret' },
+            user: { id: 'user' },
+            bot: { id: 'bot' },
+            resize: 'detect',
+            formatOptions: { showHeader: true },
+            locale: 'de-de'
+        }, document.getElementById("webchat"));
+
+        function toggleClassName() {
+
+            console.log('ToggleChat');
+
+            const botchat = document.getElementById('webchat');
+
+            if (botchat.classList.contains('scale-out')) {
+                botchat.classList.add('scale-in');
+                botchat.classList.remove('scale-out');
+            } else {
+                botchat.classList.remove('scale-in');
+                botchat.classList.add('scale-out');
+            }
+
+        }
+
+        document.getElementById('chatButton').addEventListener('click', toggleClassName);
+        var header = document.getElementsByClassName('wc-header')[0];
+        while (header.firstChild) {
+            header.removeChild(header.firstChild);
+        }
+        var headerSpan = document.createElement('SPAN');
+        header.innerHTML = 'Webchat';
+        header.appendChild(headerSpan);
+
+    </script>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+</body>
+
+</html>
