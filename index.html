@@ -58,12 +58,13 @@
         }
 
         document.getElementById('chatButton').addEventListener('click', toggleClassName);
+
         var header = document.getElementsByClassName('wc-header')[0];
         while (header.firstChild) {
             header.removeChild(header.firstChild);
         }
         var headerSpan = document.createElement('SPAN');
-        header.innerHTML = 'Webchat';
+        headerSpan.innerHTML = 'Webchat';
         header.appendChild(headerSpan);
 
     </script>
